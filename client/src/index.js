@@ -3,10 +3,21 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import store from './store/store.js';
+import { Provider } from 'react-redux';
+import { Route, Routes, BrowserRouter as Router } from 'react-router-dom';
+import Pokemones from './componentes/pokemones/pokemones.jsx';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <Router>
+        <Routes>
+          <Route exact path='/' element={<App />} />
+          <Route exact path='/pokemones' element={<Pokemones />} />
+        </Routes>
+      </Router>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
