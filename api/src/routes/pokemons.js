@@ -59,11 +59,14 @@ app.get('/', async (req, res) => {
         attributes: ['name', 'id', 'vida', 'fuerza', 'defensa', 'altura', 'peso', 'velocidad'],
         include: {
           model: Tipo,
-          attributes: {
-            include: ['name']
+          attributes: ['name'],
+          through: {
+            attributes: [],
           }
         }
       })
+
+      console.log(pokeDb)
 
       let DataFinal = PokeData.concat(pokeDb)
 
