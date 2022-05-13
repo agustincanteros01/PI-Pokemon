@@ -1,14 +1,14 @@
 const express = require('express');
 const app = express();
-const { Pokemon } = require('../db.js');
+const { Pokemon, Tipo } = require('../db.js');
 
 app.post('/', async (req, res) => {
 
   try {
-    
+
     const { name, vida, fuerza, defensa, velocidad, altura, peso, tipo } = req.body;
 
-    const creacionPoke = await Pokemon.findOrCreate({
+    const [creacionPoke, created] = await Pokemon.findOrCreate({
       where: { name: name },
       defaults: {
         name,
@@ -17,18 +17,25 @@ app.post('/', async (req, res) => {
         defensa,
         velocidad,
         altura,
-        peso,
-        tipo
+        peso
       }
     });
 
-    if(creacionPoke.length < 0){
-      res.status(400)
-    }else{
+    const [dataValues] = await Tipo.findAll({
+      where: { name: tipo },
+      attributes: ['name', 'id']
+    })
+
+    if (created === true) {
+
+      creacionPoke.addTipo(dataValues)
       res.status(201).send(creacionPoke)
+      
+    } else if (created === false) {
+      res.status(200).send({ message: 'El pokemon ya existe', pokemon: creacionPoke })
     }
 
-  }catch(e){
+  } catch (e) {
 
     console.log(e)
 
