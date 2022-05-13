@@ -9,7 +9,8 @@ module.exports = (sequelize) => {
       allowNull: false,
       validate: {
         len: [4, 15]
-      }
+      },
+      unique: true,
     },
     id: {
       type: DataTypes.UUID,
