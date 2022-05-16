@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 export function getPokemons() {
-  return function (dispatch) {
-    return axios.get('http://localhost:3001/pokemons').then(d => {
+  return async function (dispatch) {
+    return await axios.get('http://localhost:3001/pokemons').then(d => {
       return d.data
     }).then(pokemones => {
       dispatch({ type: 'GET_POKEMONES', payload: pokemones })
@@ -11,8 +11,8 @@ export function getPokemons() {
 }
 
 export function getTipos() {
-  return function (dispatch) {
-    return axios.get('http://localhost:3001/types').then(d => {
+  return async function (dispatch) {
+    return await axios.get('http://localhost:3001/types').then(d => {
       return d.data
     }).then(tipos => {
       dispatch({ type: 'GET_TIPOS', payload: tipos })
@@ -34,5 +34,12 @@ export function postPokemones(datos) {
     }).then(poke => {
       dispatch({ type: 'POST_POKEMONES', payload: poke })
     })
+  }
+}
+
+export function filtroTipo(dato) {
+  console.log(dato)
+  return function (dispatch) {
+    dispatch({ type: 'FILTRO_TIPO', payload: dato });
   }
 }
