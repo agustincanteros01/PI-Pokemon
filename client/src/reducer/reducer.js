@@ -1,58 +1,64 @@
 const initialState = {
-  pokemones: [],
+  allPokemones: [],
   tipos: [],
-  poke_detalles: []
+  pokemones: []
 }
 
 function rootReducer(state = initialState, { type, payload }) {
   if (type === 'GET_POKEMONES') {
     return {
       ...state,
+      allPokemones: state.allPokemones.concat(payload),
       pokemones: state.pokemones.concat(payload)
     }
   }
 
-  if (type === 'GET_TIPOS') {
+  if (type === 'GET_POKEMON_NOMBRE') {
     return {
       ...state,
-      tipos: state.tipos.concat(payload)
+      pokemones: payload
+    }
+  }
+
+  if (type === 'GET_TIPOS') {
+
+    const tiposPoke = []
+
+    payload.forEach(t => {
+      tiposPoke.push(t[0])
+    })
+
+    return {
+      ...state,
+      tipos: state.tipos.concat(tiposPoke)
     }
   }
 
   if (type === 'POST_POKEMONES') {
     return {
       ...state,
-      pokemones: state.pokemones.concat(payload)
+      allPokemones: state.allPokemones.concat(payload)
     }
   }
 
   if (type === 'FILTRO_TIPO') {
 
-    let filtroPoke = []
+    const allPokemones = state.allPokemones;
 
-    const allPokemones = state.pokemones;
+    const pokeFiltro = payload === 'todos' ? allPokemones :
+      allPokemones.filter((t) =>
 
-    if (payload === 'todos') {
-      filtroPoke.concat(allPokemones);
-    } else {
-      for (let i = 0; i < allPokemones.length; i++) {
-        allPokemones[i].tipo.map(t => {
-          if (t === payload) {
-            filtroPoke.push(allPokemones[i])
-          }
-        })
-      }
-    }
-    if (filtroPoke.length === 0) {
-      alert('No se encontraron pokemones con ese tipo')
-      return {
-        ...state,
-        pokemones: allPokemones
-      }
+        t.tipo[0].map((p) => p.name)[0] === payload
+        ||
+        t.tipo[0].map((p) => p.name)[1] === payload
+      )
+
+    if (pokeFiltro.length === 0) {
+      alert('No se encontraron pokemones de ese tipo');
     } else {
       return {
         ...state,
-        pokemones: filtroPoke
+        pokemones: pokeFiltro
       }
     }
 

@@ -7,6 +7,7 @@ import store from './store/store.js';
 import { Provider } from 'react-redux';
 import { Route, Routes, BrowserRouter as Router } from 'react-router-dom';
 import Pokemones from './componentes/pokemones/pokemones.jsx';
+import SearchBar from './componentes/searchBar/searchBar';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -14,7 +15,8 @@ ReactDOM.render(
       <Router>
         <Routes>
           <Route exact path='/' element={<App />} />
-          <Route exact path='/pokemones' element={<Pokemones />} />
+          <Route path='/pokemones' element={<Pokemones />} />
+          <Route path='/pokemones/:id' element={<SearchBar />} />
         </Routes>
       </Router>
     </Provider>

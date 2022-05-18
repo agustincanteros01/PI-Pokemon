@@ -2,12 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getPokemons, getTipos, filtroTipo } from '../../actions/actions.js';
 import Card from '../card/card.jsx';
+import SearchBar from '../searchBar/searchBar.jsx';
 
 export default function Pokemones() {
 
   const dispatch = useDispatch();
-  const pokemones = useSelector((state) => state.pokemones);
+  const allPokemones = useSelector((state) => state.allPokemones);
   const tipos = useSelector((state) => state.tipos);
+  const pokemones = useSelector((state) => state.pokemones);
 
   useEffect(() => {
     dispatch(getPokemons());
@@ -21,31 +23,40 @@ export default function Pokemones() {
     dispatch(filtroTipo(e.target.value));
   }
 
-  if (pokemones.length === 0) {
+  if (allPokemones.length === 0) {
     return (
       <h2>CARGANDO</h2>
     )
   } else {
     return (
       <div>
+        <SearchBar />
         <div>
           <select onChange={(e) => { handleFiltroTipo(e) }}>
             <option value="todos">todos</option>
             {
               tipos?.map(t => {
                 return (
-                  <option key={t[0].id} value={t[0].name}>{t[0].name}</option>
+                  <option key={t.id} value={t.name}>{t.name}</option>
                 )
               })
             }
           </select>
         </div>
         {
-          pokemones?.map(p => {
-            return (
-              <Card id={p.id} name={p.name} altura={p.altura} velocidad={p.velocidad} peso={p.peso} fuerza={p.fuerza} tipo={p.tipo} vida={p.vida} key={p.id} />
-            )
-          })
+          pokemones.length !== 0
+            ?
+            pokemones.map(p => {
+              return (
+                <Card id={p.id} name={p.name} altura={p.altura} velocidad={p.velocidad} peso={p.peso} fuerza={p.fuerza} tipo={p.tipo[0].map(n => { return n.name })} vida={p.vida} key={p.id} />
+              )
+            })
+            :
+            allPokemones.map(p => {
+              return (
+                <Card id={p.id} name={p.name} altura={p.altura} velocidad={p.velocidad} peso={p.peso} fuerza={p.fuerza} tipo={p.tipo[0].map(n => { return n.name })} vida={p.vida} key={p.id} />
+              )
+            })
         }
       </div>
     )

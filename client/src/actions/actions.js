@@ -6,6 +6,20 @@ export function getPokemons() {
       return d.data
     }).then(pokemones => {
       dispatch({ type: 'GET_POKEMONES', payload: pokemones })
+    }).catch(e => {
+      console.log(e)
+    })
+  }
+}
+
+export function getPokemonesPorNombre(nombre) {
+  return async function (dispatch) {
+    return await axios.get('http://localhost:3001/pokemons?name=' + nombre).then(d => {
+      return d.data
+    }).then(pokemon => {
+      dispatch({ type: 'GET_POKEMON_NOMBRE', payload: [pokemon] })
+    }).catch(e => {
+      console.log(e)
     })
   }
 }
@@ -38,7 +52,6 @@ export function postPokemones(datos) {
 }
 
 export function filtroTipo(dato) {
-  console.log(dato)
   return function (dispatch) {
     dispatch({ type: 'FILTRO_TIPO', payload: dato });
   }
