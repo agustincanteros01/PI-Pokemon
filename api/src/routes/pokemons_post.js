@@ -21,18 +21,40 @@ app.post('/', async (req, res) => {
       }
     });
 
-    const [dataValues] = await Tipo.findAll({
-      where: { name: tipo },
-      attributes: ['name', 'id']
-    })
+    if (tipo.length === 2) {
+      const tipoData = await Tipo.findAll({
+        where: { name: tipo[0] },
+        attributes: ['name', 'id']
+      })
+      const tipoData1 = await Tipo.findAll({
+        where: { name: tipo[1] },
+        attributes: ['name', 'id']
+      })
 
-    if (created === true) {
+      if (created === true) {
 
-      creacionPoke.addTipo(dataValues)
-      res.status(201).send(creacionPoke)
-      
-    } else if (created === false) {
-      res.status(200).send({ message: 'El pokemon ya existe', pokemon: creacionPoke })
+        creacionPoke.addTipo(tipoData[0])
+        creacionPoke.addTipo(tipoData1[0])
+        res.status(201).send(creacionPoke)
+
+      } else if (created === false) {
+        res.status(200).send({ message: 'El pokemon ya existe', pokemon: creacionPoke })
+      }
+
+    } else {
+      const tipoData = await Tipo.findAll({
+        where: { name: tipo },
+        attributes: ['name', 'id']
+      })
+
+      if (created === true) {
+
+        creacionPoke.addTipo(tipoData[0])
+        res.status(201).send(creacionPoke)
+
+      } else if (created === false) {
+        res.status(200).send({ message: 'El pokemon ya existe', pokemon: creacionPoke })
+      }
     }
 
   } catch (e) {

@@ -36,9 +36,9 @@ app.get('/', async (req, res) => {
             velocidad: a.data.stats[5].base_stat,
             peso: a.data.weight,
             altura: a.data.height,
-            tipo: a.data.types.map(p => {
-              return p.type.name
-            })
+            tipo: [a.data.types.map(p => {
+              return {name: p.type.name}
+            })]
           }
 
           return Poke
