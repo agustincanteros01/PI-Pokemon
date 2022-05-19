@@ -37,7 +37,7 @@ app.get('/', async (req, res) => {
             peso: a.data.weight,
             altura: a.data.height,
             tipo: [a.data.types.map(p => {
-              return {name: p.type.name}
+              return { name: p.type.name }
             })]
           }
 
@@ -66,9 +66,7 @@ app.get('/', async (req, res) => {
         }
       })
 
-      console.log(pokeDb)
-
-      let DataFinal = PokeData.concat(pokeDb)
+      let DataFinal = PokeData.concat(pokeDb);
 
       res.send(DataFinal)
 
@@ -103,7 +101,10 @@ app.get('/', async (req, res) => {
             defensa: p.data.stats[2].base_stat,
             velocidad: p.data.stats[5].base_stat,
             peso: p.data.weight,
-            altura: p.data.height
+            altura: p.data.height,
+            tipo: [p.data.types.map(p => {
+              return { name: p.type.name }
+            })]
           }
         })
 

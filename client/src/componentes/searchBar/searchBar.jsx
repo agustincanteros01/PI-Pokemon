@@ -6,11 +6,11 @@ export default function SearchBar() {
 
   const dispatch = useDispatch();
 
-  const [pokemnon, setPokemon] = useState('');
+  const [pokemon, setPokemon] = useState('');
 
   const formSubmit = (e) => {
     e.preventDefault()
-    dispatch(getPokemonesPorNombre(pokemnon))
+    dispatch(getPokemonesPorNombre(pokemon))
     e.target[0].value = ''
   }
 

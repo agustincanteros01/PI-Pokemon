@@ -1,7 +1,8 @@
 const initialState = {
   allPokemones: [],
   tipos: [],
-  pokemones: []
+  pokemones: [],
+  detalles: []
 }
 
 function rootReducer(state = initialState, { type, payload }) {
@@ -24,7 +25,7 @@ function rootReducer(state = initialState, { type, payload }) {
 
     const tiposPoke = []
 
-    payload.forEach(t => {
+    payload.map(t => {
       tiposPoke.push(t[0])
     })
 
@@ -38,6 +39,18 @@ function rootReducer(state = initialState, { type, payload }) {
     return {
       ...state,
       allPokemones: state.allPokemones.concat(payload)
+    }
+  }
+
+  if(type==='GET_DETALLES'){
+
+    const allPokemones = state.allPokemones
+
+    const pokeDetalle = allPokemones.filter(p => p.name === payload)
+
+    return {
+      ...state,
+      detalles: pokeDetalle
     }
   }
 

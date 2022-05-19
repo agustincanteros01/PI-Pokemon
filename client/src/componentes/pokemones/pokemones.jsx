@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getPokemons, getTipos, filtroTipo } from '../../actions/actions.js';
+import { getPokemons, filtroTipo } from '../../actions/actions.js';
 import Card from '../card/card.jsx';
 import SearchBar from '../searchBar/searchBar.jsx';
 
@@ -11,13 +11,9 @@ export default function Pokemones() {
   const tipos = useSelector((state) => state.tipos);
   const pokemones = useSelector((state) => state.pokemones);
 
-  useEffect(() => {
-    dispatch(getPokemons());
-  }, [dispatch]);
+  console.log(tipos)
 
-  useEffect(() => {
-    dispatch(getTipos());
-  }, [dispatch]);
+
 
   const handleFiltroTipo = (e) => {
     dispatch(filtroTipo(e.target.value));
@@ -33,15 +29,18 @@ export default function Pokemones() {
         <SearchBar />
         <div>
           <select onChange={(e) => { handleFiltroTipo(e) }}>
-            <option value="todos">todos</option>
+            <option key='todo' value="todos">todos</option>
             {
-              tipos?.map(t => {
+              tipos.map((t) => {
                 return (
                   <option key={t.id} value={t.name}>{t.name}</option>
                 )
               })
             }
           </select>
+        </div>
+        <div>
+          <button></button>
         </div>
         {
           pokemones.length !== 0
@@ -62,3 +61,5 @@ export default function Pokemones() {
     )
   }
 };
+
+

@@ -56,3 +56,9 @@ export function filtroTipo(dato) {
     dispatch({ type: 'FILTRO_TIPO', payload: dato });
   }
 }
+
+export function getDetalles(name) {
+  return function (dispatch) {
+    dispatch({ type: 'GET_DETALLES', payload: name });
+  }
+}
