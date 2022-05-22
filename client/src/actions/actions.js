@@ -44,7 +44,7 @@ export function postPokemones(datos) {
       velocidad: datos.velocidad,
       altura: datos.altura,
       peso: datos.peso,
-      tipo: datos.tipo
+      tipos: datos.tipos
     }).then(poke => {
       dispatch({ type: 'POST_POKEMONES', payload: poke })
     })

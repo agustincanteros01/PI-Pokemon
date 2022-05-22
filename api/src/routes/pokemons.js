@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const axios = require('axios');
-const { Pokemon, Tipo } = require('../db.js');
+const { Pokemon, Tipos } = require('../db.js');
 
 app.get('/', async (req, res) => {
 
@@ -36,9 +36,9 @@ app.get('/', async (req, res) => {
             velocidad: a.data.stats[5].base_stat,
             peso: a.data.weight,
             altura: a.data.height,
-            tipo: [a.data.types.map(p => {
+            tipos: a.data.types.map(p => {
               return { name: p.type.name }
-            })]
+            })
           }
 
           return Poke
@@ -58,7 +58,7 @@ app.get('/', async (req, res) => {
       const pokeDb = await Pokemon.findAll({
         attributes: ['name', 'id', 'vida', 'fuerza', 'defensa', 'altura', 'peso', 'velocidad'],
         include: {
-          model: Tipo,
+          model: Tipos,
           attributes: ['name'],
           through: {
             attributes: [],
@@ -102,9 +102,9 @@ app.get('/', async (req, res) => {
             velocidad: p.data.stats[5].base_stat,
             peso: p.data.weight,
             altura: p.data.height,
-            tipo: [p.data.types.map(p => {
+            tipos: p.data.types.map(p => {
               return { name: p.type.name }
-            })]
+            })
           }
         })
 

@@ -1,12 +1,12 @@
 const express = require('express');
 const app = express();
-const { Pokemon, Tipo } = require('../db.js');
+const { Pokemon, Tipos } = require('../db.js');
 
 app.post('/', async (req, res) => {
 
   try {
 
-    const { name, vida, fuerza, defensa, velocidad, altura, peso, tipo } = req.body;
+    const { name, vida, fuerza, defensa, velocidad, altura, peso, tipos } = req.body;
 
     const [creacionPoke, created] = await Pokemon.findOrCreate({
       where: { name: name },
@@ -21,20 +21,20 @@ app.post('/', async (req, res) => {
       }
     });
 
-    if (tipo.length === 2) {
-      const tipoData = await Tipo.findAll({
-        where: { name: tipo[0] },
+    if (tipos.length === 2) {
+      const tipoData = await Tipos.findAll({
+        where: { name: tipos[0] },
         attributes: ['name', 'id']
       })
-      const tipoData1 = await Tipo.findAll({
-        where: { name: tipo[1] },
+      const tipoData1 = await Tipos.findAll({
+        where: { name: tipos[1] },
         attributes: ['name', 'id']
       })
 
       if (created === true) {
 
-        creacionPoke.addTipo(tipoData[0])
-        creacionPoke.addTipo(tipoData1[0])
+        creacionPoke.addTipos(tipoData[0])
+        creacionPoke.addTipos(tipoData1[0])
         res.status(201).send(creacionPoke)
 
       } else if (created === false) {
@@ -42,14 +42,14 @@ app.post('/', async (req, res) => {
       }
 
     } else {
-      const tipoData = await Tipo.findAll({
-        where: { name: tipo },
+      const tipoData = await Tipos.findAll({
+        where: { name: tipos },
         attributes: ['name', 'id']
       })
 
       if (created === true) {
 
-        creacionPoke.addTipo(tipoData[0])
+        creacionPoke.addTipos(tipoData[0])
         res.status(201).send(creacionPoke)
 
       } else if (created === false) {

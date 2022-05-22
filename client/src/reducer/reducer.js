@@ -9,8 +9,7 @@ function rootReducer(state = initialState, { type, payload }) {
   if (type === 'GET_POKEMONES') {
     return {
       ...state,
-      allPokemones: state.allPokemones.concat(payload),
-      pokemones: state.pokemones.concat(payload)
+      allPokemones: payload,
     }
   }
 
@@ -26,12 +25,14 @@ function rootReducer(state = initialState, { type, payload }) {
     const tiposPoke = []
 
     payload.map(t => {
-      tiposPoke.push(t[0])
+      return (
+        tiposPoke.push(t[0])
+      )
     })
 
     return {
       ...state,
-      tipos: state.tipos.concat(tiposPoke)
+      tipos: tiposPoke
     }
   }
 
@@ -42,7 +43,7 @@ function rootReducer(state = initialState, { type, payload }) {
     }
   }
 
-  if(type==='GET_DETALLES'){
+  if (type === 'GET_DETALLES') {
 
     const allPokemones = state.allPokemones
 
@@ -61,9 +62,9 @@ function rootReducer(state = initialState, { type, payload }) {
     const pokeFiltro = payload === 'todos' ? allPokemones :
       allPokemones.filter((t) =>
 
-        t.tipo[0].map((p) => p.name)[0] === payload
+        t.tipos.map((p) => p.name)[0] === payload
         ||
-        t.tipo[0].map((p) => p.name)[1] === payload
+        t.tipos.map((p) => p.name)[1] === payload
       )
 
     if (pokeFiltro.length === 0) {

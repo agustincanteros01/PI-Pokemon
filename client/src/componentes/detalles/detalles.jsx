@@ -24,7 +24,7 @@ export default function Detalles() {
                 <h4>VELOCIDAD: {p.velocidad}</h4>
                 <h4>PESO: {p.peso}</h4>
                 <h4>FUERZA: {p.fuerza}</h4>
-                <h4>TIPOS: {`${p.tipo[0][0].name}, ${p.tipo[0][1].name}`}</h4>
+                <h4>TIPOS: {`${p.tipos[0][0].name}, ${p.tipos[0][1].name}`}</h4>
                 <h4>VIDA: {p.vida}</h4>
               </div>
             )

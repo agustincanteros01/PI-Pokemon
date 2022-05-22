@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { getDetalles } from '../../actions/actions';
 import { useDispatch } from 'react-redux';
 
-export default function Card({ id, name, altura, velocidad, peso, fuerza, tipo, vida }) {
+export default function Card({ id, name, altura, velocidad, peso, fuerza, tipos, vida }) {
 
   const dispatch = useDispatch();
   const [pokemon, setPokemon] = useState('');
@@ -20,7 +20,7 @@ export default function Card({ id, name, altura, velocidad, peso, fuerza, tipo, 
       <h4>VELOCIDAD: {velocidad}</h4>
       <h4>PESO: {peso}</h4>
       <h4>FUERZA: {fuerza}</h4>
-      <h4>TIPOS: {`${tipo}`}</h4>
+      <h4>TIPOS: {`${tipos}`}</h4>
       <h4>VIDA: {vida}</h4>
     </div>
   );

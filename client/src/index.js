@@ -8,6 +8,7 @@ import { Provider } from 'react-redux';
 import { Route, Routes, BrowserRouter as Router } from 'react-router-dom';
 import Pokemones from './componentes/pokemones/pokemones.jsx';
 import Detalles from './componentes/detalles/detalles';
+import CrearPokemon from './componentes/crearPokemon/crearPokemon';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -17,6 +18,7 @@ ReactDOM.render(
           <Route exact path='/' element={<App />} />
           <Route exact path='/pokemones' element={<Pokemones />} />
           <Route exact path='/pokemones/:id' element={<Detalles />} />
+          <Route exact path='/pokemones/creacion' element={<CrearPokemon />} />
         </Routes>
       </Router>
     </Provider>
